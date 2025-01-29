@@ -1,64 +1,48 @@
 cmake_minimum_required(VERSION 3.22)
 
+# 设置项目名称
 project(stm32cubemx)
+
+# 启用 C 和 C++ 语言支持
+enable_language(C ASM CXX)
+
+# 创建一个接口库
 add_library(stm32cubemx INTERFACE)
 
-# Enable CMake support for ASM and C languages
-enable_language(C ASM)
-
+# 设置编译定义
 target_compile_definitions(stm32cubemx INTERFACE 
-	USE_HAL_DRIVER 
-	STM32G030xx
+    USE_HAL_DRIVER 
+    STM32G030xx
     $<$<CONFIG:Debug>:DEBUG>
 )
 
+# 添加包含目录
 target_include_directories(stm32cubemx INTERFACE
     ../../Core/Inc
     ../../Drivers/STM32G0xx_HAL_Driver/Inc
     ../../Drivers/STM32G0xx_HAL_Driver/Inc/Legacy
     ../../Drivers/CMSIS/Device/ST/STM32G0xx/Include
     ../../Drivers/CMSIS/Include
+    ../../Source
 )
 
-target_sources(stm32cubemx INTERFACE
-    ../../Core/Src/main.c
-    ../../Core/Src/gpio.c
-    ../../Core/Src/tim.c
-    ../../Core/Src/usart.c
-    ../../Core/Src/stm32g0xx_it.c
-    ../../Core/Src/stm32g0xx_hal_msp.c
-    ../../Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_tim.c
-    ../../Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_tim_ex.c
-    ../../Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_rcc.c
-    ../../Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_rcc_ex.c
-    ../../Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_ll_rcc.c
-    ../../Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_flash.c
-    ../../Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_flash_ex.c
-    ../../Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_gpio.c
-    ../../Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_dma.c
-    ../../Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_dma_ex.c
-    ../../Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_pwr.c
-    ../../Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_pwr_ex.c
-    ../../Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_cortex.c
-    ../../Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal.c
-    ../../Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_exti.c
-    ../../Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_uart.c
-    ../../Drivers/STM32G0xx_HAL_Driver/Src/stm32g0xx_hal_uart_ex.c
-    ../../Core/Src/system_stm32g0xx.c
-    ../../Core/Src/sysmem.c
-    ../../Core/Src/syscalls.c
-    ../../startup_stm32g030xx.s
+# 自动查找 source 和 core 目录下的所有 .c、.cpp 和 .s 文件
+file(GLOB_RECURSE CMAKE_PROJECT_NAME
+    "../../Core/Src/*.c"
+    "../../Core/Src/*.cpp"
+    "../../Core/Src/*.s"
+    
+    "../../Drivers/STM32G0xx_HAL_Driver/Src/*.c"
+    "../../startup_stm32g030xx.s"
+#自定义文件
+    "../../Source/*.cpp"
+    "../../Source/*.c"
 )
 
-target_link_directories(stm32cubemx INTERFACE
-)
+# 添加源文件到目标
+target_sources(stm32cubemx INTERFACE ${CMAKE_PROJECT_NAME})
 
-target_link_libraries(stm32cubemx INTERFACE
-)
-
-# Validate that STM32CubeMX code is compatible with C standard
+# 验证 C 标准是否符合要求
 if(CMAKE_C_STANDARD LESS 11)
     message(ERROR "Generated code requires C11 or higher")
 endif()
-
-

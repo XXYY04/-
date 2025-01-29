@@ -1,0 +1,5 @@
+C:/Users/x'y/Desktop/1231312123/build/Debug/CMakeFiles/1231312123.dir
+C:/Users/x'y/Desktop/1231312123/build/Debug/CMakeFiles/edit_cache.dir
+C:/Users/x'y/Desktop/1231312123/build/Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/x'y/Desktop/1231312123/build/Debug/cmake/stm32cubemx/CMakeFiles/edit_cache.dir
+C:/Users/x'y/Desktop/1231312123/build/Debug/cmake/stm32cubemx/CMakeFiles/rebuild_cache.dir

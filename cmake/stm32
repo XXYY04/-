@@ -1,0 +1,1 @@
+target_sources(stm32cubemx INTERFACE \${CMAKE_PROJECT_NAME}) 

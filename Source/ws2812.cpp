@@ -5,8 +5,8 @@
 #include "key.hpp"
 
 WS2812 red(11,RED);
-WS2812 blue(11,GREEN);
-WS2812 black(11,BLUE);
+WS2812 blue(11,BLUE);
+WS2812 black(11,BLACK);
 Key key1(Key1_State);
 
 const RGB_Color_TypeDef WHITE = {255,255,255}; //°×É«
@@ -22,8 +22,8 @@ WS2812 :: WS2812(uint8_t nums,RGB_Color_TypeDef color) : NUM(nums){
       Color_deta_buf.resize(NUM + 1);
       for( auto& row : Color_deta_buf)
          row.resize(24,0);
-         Set_All(color); 
-         Final_Set();
+            Set_All(color); 
+            Final_Set();
    }
 
     void WS2812 ::Final_Set(){    //ÖÃÎ»ÐÅºÅ

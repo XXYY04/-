@@ -94,7 +94,8 @@ int main(void)
   MX_TIM14_Init();
   MX_TIM16_Init();
   /* USER CODE BEGIN 2 */
-    SOUND sound;
+  HAL_TIM_Base_Start_IT(&htim14);
+  SOUND sound;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -102,18 +103,13 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  
-
 
     /* USER CODE BEGIN 3 */
-    if (sound.Sound_State())
+            if (sound.Sound_State())
     {
         black.Send_Data();
         HAL_Delay(20);
     }
-    
-
-
   }
   /* USER CODE END 3 */
 }

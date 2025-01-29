@@ -1,0 +1,20 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Download",
+            "type": "shell",
+            "command": "openocd",
+            "args": [
+                "-f", 
+                "flash.cfg"
+            ],
+            "problemMatcher": [],
+            "detail": " OpenOCD Download Program",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
